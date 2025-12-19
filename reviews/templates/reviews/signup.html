@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+</head>
+<body>
+
+    <div id="connexion">
+        <h2>Inscrivez-vous</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <p>
+                <label>Nom d'utilisateur :</label>
+                {{ form.username }}
+            </p>
+            {{ form.username.errors }}
+            <p>
+                <label>Mot de passe :</label>
+                {{ form.password1 }}
+            </p>
+            {{ form.password1.errors }}
+            <p>
+                <label>Confirmer le mot de passe :</label>
+                {{ form.password2 }}
+            </p>
+            {{ form.password2.errors }}
+            <button type="submit">S'inscrire</button>
+        </form>
+    </div>
+
+    <div id="signin">
+        <p>Déjà un compte ? <a href="{% url 'login' %}">Se connecter</a></p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Mon Flux</title>
+</head>
+<body>
+    <h1>Bienvenue</h1>
+    <p>Bravo, tu es connecté.</p>
+
+    <p>Utilisateur connecté : {{ user.username }}</p>
+    <footer><a href="{% url 'logout' %}">Se déconnecter</a></footer>
+</body>
+</html>
