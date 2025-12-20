@@ -17,8 +17,6 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         fields = ['title', 'description', 'image']
 
-
-
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
