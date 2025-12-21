@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer une critique</title>
+</head>
+<body>
+    <h1>Créer une critique</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ ticket_form.non_field_errors }}
+        {{ review_form.non_field_errors }}
+
+        <h2>Livre / Article</h2>
+
+        <p>
+            <label>Titre : {{ ticket_form.title }}</label>
+        </p>
+        {{ ticket_form.title.errors }}
+
+        <p>
+            <label>Description : {{ ticket_form.description }}</label>
+        </p>
+        {{ ticket_form.description.errors }}
+
+        <p>
+            <label>Image : {{ ticket_form.image }}</label>
+        </p>
+        {{ ticket_form.image.errors }}
+
+        <hr>
+
+        <h2>Critique</h2>
+
+        <p>
+            <label>Titre : {{ review_form.headline }}</label>
+        </p>
+        {{ review_form.headline.errors }}
+
+        <p>
+            <label>Note : {{ review_form.rating }}</label>
+        </p>
+        {{ review_form.rating.errors }}
+
+        <p>
+            <label>Commentaire : {{ review_form.body }}</label>
+        </p>
+        {{ review_form.body.errors }}
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+</body>
+</html>

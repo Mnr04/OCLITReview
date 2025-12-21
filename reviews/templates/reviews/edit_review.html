@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier votre critique</title>
+</head>
+<body>
+
+    <h1>Modifier une critique</h1>
+
+    <h3>Vous répondez au ticket de {{ ticket.user }}</h3>
+
+    <p>Titre du livre : {{ ticket.title }}</p>
+    <p>Description : {{ ticket.description }}</p>
+
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="Image du livre" width="200">
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <p>
+            <label>Titre de votre critique : {{ form.headline }}</label>
+        </p>
+        {{ form.headline.errors }}
+
+        <p>
+            <label>Note : {{ form.rating }}</label>
+        </p>
+        {{ form.rating.errors }}
+
+        <p>
+            <label>Commentaire : {{ form.body }}</label>
+        </p>
+        {{ form.body.errors }}
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <form method="post" action="{% url 'delete_review' review.id %}"
+          onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette critique ?');">
+        {% csrf_token %}
+        <button type="submit">Supprimer la critique</button>
+    </form>
+
+</body>
+</html>

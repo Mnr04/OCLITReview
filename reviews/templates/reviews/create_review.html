@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer une critique</title>
+</head>
+<body>
+    <h1>Créer une critique</h1>
+
+    <h3>Vous répondez au ticket de {{ ticket.user }}</h3>
+
+    <p>Titre du livre : {{ ticket.title }}</p>
+    <p>Description : {{ ticket.description }}</p>
+
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="Image du livre" width="200">
+    {% endif %}
+
+    <hr>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <p>
+            <label>Titre de votre critique : {{ form.headline }}</label>
+        </p>
+        {{ form.headline.errors }}
+
+        <p>
+            <label>Note : {{ form.rating }}</label>
+        </p>
+        {{ form.rating.errors }}
+
+        <p>
+            <label>Commentaire : {{ form.body }}</label>
+        </p>
+        {{ form.body.errors }}
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+</body>
+</html>

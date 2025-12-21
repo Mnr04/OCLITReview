@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier ticket</title>
+</head>
+<body>
+
+    <div id="create_ticket">
+        <h2>Modifier votre ticket </h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <p>
+                <label>Titre :</label>
+                {{ form.title }}
+            </p>
+            {{ form.title.errors }}
+            <p>
+                <label>Description :</label>
+                {{ form.description }}
+            </p>
+            {{ form.description.errors }}
+            <p>
+                <label>image :</label>
+                {{ form.image }}
+            </p>
+            {{ form.image.errors }}
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    <form method="post" action="{% url 'delete_ticket' ticket.id %}"
+      onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce ticket ?');">
+    {% csrf_token %}
+    <button type="submit">Supprimer le Ticket</button>
+    </form>
+
+
+</body>
+</html>
