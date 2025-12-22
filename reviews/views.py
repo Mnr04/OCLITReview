@@ -236,3 +236,11 @@ def follow_users(request):
         'message': message
     })
 
+def unfollow_user(request, user_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    user_to_unfollow = get_object_or_404(User, id=user_id)
+    UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()
+
+    return redirect('follow_users')

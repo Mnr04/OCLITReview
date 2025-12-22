@@ -5,7 +5,6 @@
     <title>Abonnements</title>
 </head>
 <body>
-
     <h1>Suivre d'autres utilisateurs</h1>
 
     <form method="post">
@@ -26,7 +25,12 @@
     <h2>Abonnements</h2>
     <ul>
         {% for follow in following %}
-            <li>{{ follow.followed_user.username }}</li>
+            <li>
+                {{ follow.followed_user.username }}
+                <a href="{% url 'unfollow_user' follow.followed_user.id %}">
+                    <button type="button">Se désabonner</button>
+                </a>
+            </li>
         {% empty %}
             <li>Vous ne suivez personne pour l'instant.</li>
         {% endfor %}
