@@ -5,6 +5,11 @@ from django.contrib.auth import logout
 from django import forms
 from .models import Ticket, Review, UserFollows, User
 
+from itertools import chain
+from django.db.models import CharField, Value
+from django.shortcuts import render
+
+""" Forms """
 class SignupForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         # Tell Django to use this Model to save data
@@ -199,7 +204,6 @@ def delete_review(request, review_id):
     return redirect('main')
 
 """ User Folow """
-
 def follow_users(request):
 
     if not request.user.is_authenticated:
@@ -244,3 +248,40 @@ def unfollow_user(request, user_id):
     UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()
 
     return redirect('follow_users')
+
+""" MAIN VIEW """
+def main(request):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    # Get follow id list
+    follows = UserFollows.objects.filter(user=request.user)
+    followed_users_ids = []
+    for follow in follows:
+        followed_users_ids.append(follow.followed_user.id)
+
+    # Handle tickets
+    tickets_me = Ticket.objects.filter(user=request.user)
+    tickets_followed = Ticket.objects.filter(user__in=followed_users_ids)
+    tickets = tickets_me | tickets_followed
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # Handle Review
+    reviews_me = Review.objects.filter(user=request.user)
+    reviews_followed = Review.objects.filter(user__in=followed_users_ids)
+    reviews_answers = Review.objects.filter(ticket__in=tickets_me)
+    reviews = reviews_me | reviews_followed | reviews_answers
+    reviews = reviews.distinct()
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+
+    return render(request, 'reviews/main.html', {'posts': posts})
+
+""" My Post """

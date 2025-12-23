@@ -120,3 +120,4 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'reviews.User'
 
 LOGIN_REDIRECT_URL = '/'
+
