@@ -285,3 +285,6 @@ def main(request):
     return render(request, 'reviews/main.html', {'posts': posts})
 
 """ My Post """
+
+def posts(request):
+    pass
