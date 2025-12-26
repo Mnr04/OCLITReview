@@ -287,4 +287,20 @@ def main(request):
 """ My Post """
 
 def posts(request):
-    pass
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    # My tickets
+    tickets = Ticket.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # My reviews
+    reviews = Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+    )
+
+    return render(request, 'reviews/posts.html', {'post': posts})
