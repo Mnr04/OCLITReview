@@ -301,6 +301,7 @@ def posts(request):
     posts = sorted(
         chain(tickets, reviews),
         key=lambda post: post.time_created,
+        reverse=True
     )
 
     return render(request, 'reviews/posts.html', {'post': posts})
