@@ -7,7 +7,7 @@ from .models import Ticket, Review, UserFollows, User
 
 from itertools import chain
 from django.db.models import CharField, Value
-from django.shortcuts import render
+
 
 """ Forms """
 class SignupForm(UserCreationForm):
