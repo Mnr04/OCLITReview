@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Posts</title>
+</head>
+<body>
+
+    <nav>
+        <h3>LITReview</h3>
+        <ul>
+            <li><a href="{% url 'main' %}">Flux</a></li>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+        </ul>
+    </nav>
+    <hr>
+
+    <h1>Vos posts</h1>
+
+    <div>
+        {% for post in posts %}
+
+            {% if post.content_type == 'REVIEW' %}
+                <div>
+
+                    <p>
+                        Vous avez publié une critique le {{ post.time_created }}
+                    </p>
+
+                    <h3>{{ post.headline }} - Note : {{ post.rating }}/5</h3>
+                    <p>{{ post.body }}</p>
+
+                    <div>
+                        <p>Ticket : {{ post.ticket.title }}</p>
+                    </div>
+
+                    <p>
+                        <a href="{% url 'edit_review' post.id %}"><button>Modifier</button></a>
+                        <a href="{% url 'delete_review' post.id %}"><button>Supprimer</button></a>
+                    </p>
+
+                </div>
+                <hr> {% elif post.content_type == 'TICKET' %}
+                <div>
+
+                    <p>
+                        Vous avez demandé une critique le {{ post.time_created }}
+                    </p>
+
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.description }}</p>
+
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="Image du livre" width="100">
+                    {% endif %}
+
+                    <p>
+                        <a href="{% url 'edit_ticket' post.id %}"><button>Modifier</button></a>
+                        <a href="{% url 'delete_ticket' post.id %}"><button>Supprimer</button></a>
+                    </p>
+
+                </div>
+                <hr> {% endif %}
+
+        {% empty %}
+            <p>Vous n'avez encore rien posté.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
