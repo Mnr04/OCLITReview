@@ -11,29 +11,30 @@
     <nav>
     <h3>LITReview</h3>
     </nav>
-    <div id="connexion">
-    <h2>Connectez-vous</h2>
+    <div id ='container' >
+        <div id="signin">
+            <p>Inscrivez-vous maintenant</p>
+            <button><a href="{% url 'signup' %}">S'inscrire</a></button>
+        </div>
+        <div id="connexion">
+        <h2>Connectez-vous</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <p>
-            <label>Nom d'utilisateur :</label>
-            {{ form.username }}
-            {{ form.username.errors }}
-        </p>
+        <form class="inputGroup" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <p>
+                <input type="text" name="username" placeholder="Entrez votre nom" required>
+                {{ form.username.errors }}
+            </p>
 
-        <p>
-            <label>Mot de passe :</label>
-            {{ form.password }}
-            {{ form.password.errors }}
-        </p>
+            <p>
+                <input type="password" name="password" placeholder="Votre mot de passe" required>
+                {{ form.password.errors }}
+            </p>
 
-        <button type="submit">Se connecter</button>
-    </form>
-    </div>
-    <div id="signin">
-        <p>Inscrivez-vous maintenant <a href="{% url 'signup' %}">S'inscrire</a></p>
+            <button type="submit">Se connecter</button>
+        </form>
+        </div>
     </div>
 </body>
 </html>
