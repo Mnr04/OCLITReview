@@ -1,5 +1,6 @@
 body {
     font-family: Tahoma, Geneva, sans-serif;
+    background-color: #f3f4f6;
 }
 
 /*
@@ -48,6 +49,7 @@ Login Page
     flex-direction: row;
     padding: 20px;
     height: 100%;
+    min-height: 60vh;
 }
 
 #connexion, #signin {
@@ -138,4 +140,13 @@ Input
 
 .inputGroup :is(input:focus, input:valid) {
   border-color: rgb(150, 150, 200);
+}
+
+
+
+@media (max-width: 625px) {
+    #container {
+        flex-direction: column;
+        width: 95%;
+    }
 }
