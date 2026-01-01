@@ -1,41 +1,52 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Connexion - LITReview</title>
     <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
     <nav>
-    <h3>LITReview</h3>
+        <h3>LITReview</h3>
     </nav>
-    <div id ='container' >
+
+    <div id='container'>
         <div id="signin">
-            <p>Inscrivez-vous maintenant</p>
+            <h2>Pas encore de compte ?</h2>
+            <p>Inscrivez-vous pour partager vos critiques.</p>
+            <br>
             <button><a href="{% url 'signup' %}">S'inscrire</a></button>
         </div>
+
         <div id="connexion">
-        <h2>Connectez-vous</h2>
+            <h2>Connectez-vous</h2>
 
-        <form class="inputGroup" method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <p>
-                <input type="text" name="username" placeholder="Entrez votre nom" required>
+            {% if form.non_field_errors %}
+                <div>
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="inputGroup">
+                    <input type="text" name="username" required autocomplete="off">
+                    <label>Nom d'utilisateur</label>
+                </div>
                 {{ form.username.errors }}
-            </p>
 
-            <p>
-                <input type="password" name="password" placeholder="Votre mot de passe" required>
+                <div class="inputGroup">
+                    <input type="password" name="password" required>
+                    <label>Mot de passe</label>
+                </div>
                 {{ form.password.errors }}
-            </p>
 
-            <button type="submit">Se connecter</button>
-        </form>
+                <button type="submit">Se connecter</button>
+            </form>
         </div>
     </div>
-
 </body>
 </html>
