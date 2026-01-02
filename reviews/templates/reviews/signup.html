@@ -12,7 +12,7 @@
         <h3>LITReview</h3>
     </nav>
 
-    <div id="container" class="vertical-layout">
+    <div id="container" class="vertical">
 
         <div id="signin">
             <h2>Déjà inscrit ?</h2>
@@ -25,7 +25,7 @@
             <h2>Créez votre compte</h2>
 
             {% if form.non_field_errors %}
-                <div>
+                <div class="form-errors">
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
@@ -34,26 +34,26 @@
                 {% csrf_token %}
 
                 <div class="inputGroup">
-                    <input type="text" name="username" required autocomplete="off">
-                    <label>Nom d'utilisateur</label>
+                    <label for="id_username">Nom d'utilisateur</label>
+                    <input type="text" name="username" id="id_username" placeholder="Choisissez un pseudo" required autocomplete="off">
                 </div>
-                <div>
+                <div class="error-msg">
                     {{ form.username.errors }}
                 </div>
 
                 <div class="inputGroup">
-                    <input type="password" name="password1" required>
-                    <label>Mot de passe</label>
+                    <label for="id_password1">Mot de passe</label>
+                    <input type="password" name="password1" id="id_password1" placeholder="Votre mot de passe" required>
                 </div>
-                <div>
+                <div class="error-msg">
                     {{ form.password1.errors }}
                 </div>
 
                 <div class="inputGroup">
-                    <input type="password" name="password2" required>
-                    <label>Confirmer</label>
+                    <label for="id_password2">Confirmer</label>
+                    <input type="password" name="password2" id="id_password2" placeholder="Confirmez le mot de passe" required>
                 </div>
-                <div>
+                <div class="error-msg">
                     {{ form.password2.errors }}
                 </div>
 
