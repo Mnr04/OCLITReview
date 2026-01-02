@@ -79,6 +79,58 @@ Login Page
 }
 
 /*
+Create ticket
+*/
+#ticket-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+#ticket-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.inputGroup textarea {
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(200, 200, 200);
+  background-color: transparent;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.inputGroup :is(textarea:focus, textarea:valid) ~ label {
+  transform: translateY(-50%) scale(0.9);
+  margin: 0;
+  margin-left: 1.3em;
+  padding: 0 0.4em;
+  background-color: white;
+  top: 0;
+  color: #2ea44f;
+}
+
+.inputGroup :is(textarea:focus, textarea:valid) {
+  border-color: #2ea44f;
+}
+
+
+/*
 Buttons
  */
 button {

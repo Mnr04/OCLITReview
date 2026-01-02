@@ -9,46 +9,56 @@
 </head>
 <body>
     <nav>
-    <h3>LITReview</h3>
+        <h3>LITReview</h3>
 
-    <div class="menu-icon">
-        <span>&#9776;</span> </div>
+        <div class="menu-icon">
+            <span>&#9776;</span>
+        </div>
 
-    <ul class="menu">
-        <li><a href="{% url 'main' %}">Flux</a></li>
-        <li><a href="{% url 'posts' %}">Posts</a></li>
-        <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-        <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-    </ul>
-
+        <ul class="menu">
+            <li><a href="{% url 'main' %}">Flux</a></li>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+        </ul>
     </nav>
 
-    <div id="create_ticket">
+    <div id="ticket-container">
+
         <h2>Créer un ticket</h2>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.non_field_errors }}
 
-            <p>
-                <label>Titre :</label>
-                {{ form.title }}
-            </p>
-            {{ form.title.errors }}
-            <p>
-                <label>Description :</label>
-                {{ form.description }}
-            </p>
-            {{ form.description.errors }}
-            <p>
-                <label>image :</label>
-                {{ form.image }}
-            </p>
-            {{ form.image.errors }}
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+
+            <div class="inputGroup">
+                <input type="text" name="title" id="id_title" required autocomplete="off">
+                <label for="id_title">Titre :</label>
+            </div>
+            <div class="error-msg">{{ form.title.errors }}</div>
+
+
+            <div class="inputGroup">
+                <input  name="description" id="id_description" required autocomplete="off">
+                <label for="id_description">Description :</label>
+            </div>
+             <div class="error-msg">{{ form.description.errors }}</div>
+
+
+            <div class="inputGroup">
+                <input type="file" name="image" id="id_image">
+                <label for="id_image">Image :</label>
+            </div>
+             <div class="error-msg">{{ form.image.errors }}</div>
+
+
             <button type="submit">Envoyer</button>
         </form>
     </div>
 
-<script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
