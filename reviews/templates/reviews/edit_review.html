@@ -1,60 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier votre critique</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
     <nav>
-    <h3>LITReview</h3>
-    <ul>
-        <li><a href="{% url 'main' %}">Flux</a></li>
-        <li><a href="{% url 'posts' %}">Posts</a></li>
-        <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-        <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-    </ul>
+        <h3>LITReview</h3>
+
+        <div class="menu-icon">
+            <span>&#9776;</span>
+        </div>
+
+        <ul class="menu">
+            <li><a href="{% url 'main' %}">Flux</a></li>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+        </ul>
     </nav>
-    <hr>
 
-    <h1>Modifier une critique</h1>
+    <div id="ticket-container">
 
-    <h3>Vous répondez au ticket de {{ ticket.user }}</h3>
+        <h2>Modifier une critique</h2>
 
-    <p>Titre du livre : {{ ticket.title }}</p>
-    <p>Description : {{ ticket.description }}</p>
+        <h3>Ticket de {{ ticket.user }}</h3>
+        <p><strong>Livre :</strong> {{ ticket.title }}</p>
+        <p>{{ ticket.description }}</p>
 
-    {% if ticket.image %}
-        <img src="{{ ticket.image.url }}" alt="Image du livre" width="200">
-    {% endif %}
+        {% if ticket.image %}
+            <img src="{{ ticket.image.url }}" alt="Image du livre">
+        {% endif %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
 
-        <p>
-            <label>Titre de votre critique : {{ form.headline }}</label>
-        </p>
-        {{ form.headline.errors }}
+            <div class="inputGroup">
+                <label for="id_headline">Titre de votre critique</label>
+                <input type="text" name="headline" id="id_headline" value="{{ form.headline.value|default_if_none:'' }}" required>
+            </div>
+            <div>{{ form.headline.errors }}</div>
 
-        <p>
-            <label>Note : {{ form.rating }}</label>
-        </p>
-        {{ form.rating.errors }}
+            <div class="inputGroup">
+                <label>Note</label>
+                {{ form.rating }}
+            </div>
+            <div>{{ form.rating.errors }}</div>
 
-        <p>
-            <label>Commentaire : {{ form.body }}</label>
-        </p>
-        {{ form.body.errors }}
+            <div class="inputGroup">
+                <label for="id_body">Commentaire</label>
+                <textarea name="body" id="id_body" rows="4" required>{{ form.body.value|default_if_none:'' }}</textarea>
+            </div>
+            <div>{{ form.body.errors }}</div>
 
-        <button type="submit">Envoyer</button>
-    </form>
+            <button id="page_btn" type="submit">Enregistrer</button>
+        </form>
 
-    <form method="post" action="{% url 'delete_review' review.id %}"
-          onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette critique ?');">
-        {% csrf_token %}
-        <button type="submit">Supprimer la critique</button>
-    </form>
+        <hr>
 
+        <form method="post" action="{% url 'delete_review' review.id %}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette critique ?');">
+            {% csrf_token %}
+            <button id="page_btn" type="submit">Supprimer la critique</button>
+        </form>
+
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

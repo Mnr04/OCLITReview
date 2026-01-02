@@ -1,54 +1,68 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier ticket</title>
+    <title>Modifier le ticket</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
     <nav>
-    <h3>LITReview</h3>
-    <ul>
-        <li><a href="{% url 'main' %}">Flux</a></li>
-        <li><a href="{% url 'posts' %}">Posts</a></li>
-        <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-        <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-    </ul>
+        <h3>LITReview</h3>
+        <div class="menu-icon"><span>&#9776;</span></div>
+        <ul class="menu">
+            <li><a href="{% url 'main' %}">Flux</a></li>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+        </ul>
     </nav>
-    <hr>
 
-    <div id="create_ticket">
-        <h2>Modifier votre ticket </h2>
+    <div id="ticket-container">
+
+        <h2>Modifier votre ticket</h2>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.non_field_errors }}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
 
-            <p>
-                <label>Titre :</label>
-                {{ form.title }}
-            </p>
-            {{ form.title.errors }}
-            <p>
-                <label>Description :</label>
-                {{ form.description }}
-            </p>
-            {{ form.description.errors }}
-            <p>
-                <label>image :</label>
-                {{ form.image }}
-            </p>
-            {{ form.image.errors }}
-            <button type="submit">Envoyer</button>
+            <div class="inputGroup">
+                <label for="id_title">Titre</label>
+                <input type="text" name="title" id="id_title" value="{{ form.title.value|default_if_none:'' }}" required>
+            </div>
+            <div >{{ form.title.errors }}</div>
+
+            <div class="inputGroup">
+                <label for="id_description">Description</label>
+                <textarea name="description" id="id_description" rows="4" required>{{ form.description.value|default_if_none:'' }}</textarea>
+            </div>
+            <div >{{ form.description.errors }}</div>
+
+            {% if form.instance.image %}
+            <div>
+                <p>
+                    Image actuelle : <a href="{{ form.instance.image.url }}" target="_blank" >Voir l'image</a>
+                </p>
+            </div>
+            {% endif %}
+
+            <div >
+                <label for="id_image">Changer l'image</label>
+                <input type="file" name="image" id="id_image">
+            </div>
+            <div >{{ form.image.errors }}</div>
+
+            <button id="page_btn" type="submit">Enregistrer les modifications</button>
         </form>
+
+        <form method="post" action="{% url 'delete_ticket' ticket.id %}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce ticket ?');" style="width: 100%;">
+            {% csrf_token %}
+            <button type="submit" id="page_btn">Supprimer le Ticket</button>
+        </form>
+
     </div>
 
-    <form method="post" action="{% url 'delete_ticket' ticket.id %}"
-      onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce ticket ?');">
-    {% csrf_token %}
-    <button type="submit">Supprimer le Ticket</button>
-    </form>
-
-
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
