@@ -187,6 +187,15 @@ Image upload
 }
 
 /*
+Posts
+*/
+.inputGroup.posts {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    background-color: #f9f9f9;
+
+/*
 responsive
  */
 

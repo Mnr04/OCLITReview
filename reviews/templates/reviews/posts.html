@@ -32,7 +32,7 @@
         {% for post in posts %}
 
             {% if post.content_type == 'REVIEW' %}
-                <div class="inputGroup"> <p>
+                <div class="inputGroup posts"> <p>
                         <em>Publié le {{ post.time_created }}</em>
                     </p>
 
@@ -51,7 +51,7 @@
                 </div>
 
             {% elif post.content_type == 'TICKET' %}
-                <div class="inputGroup">
+                <div class="inputGroup posts">
                     <p>
                         <em>Demandé le {{ post.time_created }}</em>
                     </p>

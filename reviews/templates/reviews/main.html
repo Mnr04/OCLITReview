@@ -42,12 +42,12 @@
         {% for post in posts %}
 
             {% if post.content_type == 'REVIEW' %}
-                <div class="inputGroup">
+                <div class="inputGroup posts">
                     <p>
                         {% if post.user == user %}
-                            <strong>Vous</strong> avez publié une critique
+                            Vous avez publié une critique
                         {% else %}
-                            <strong>{{ post.user.username }}</strong> a publié une critique
+                            {{ post.user.username }} a publié une critique
                         {% endif %}
                         <br>
                         <small>{{ post.time_created }}</small>
@@ -59,7 +59,7 @@
 
                     <div>
                         <small>Ticket concerné :</small>
-                        <p><strong>{{ post.ticket.title }}</strong></p>
+                        <p>{{ post.ticket.title }}</p>
                         {% if post.ticket.image %}
                             <img src="{{ post.ticket.image.url }}" alt="Image du livre" width="100">
                         {% endif %}
@@ -67,12 +67,12 @@
                 </div>
 
             {% elif post.content_type == 'TICKET' %}
-                <div class="inputGroup">
+                <div class="inputGroup posts">
                     <p>
                         {% if post.user == user %}
-                            <strong>Vous</strong> avez demandé une critique
+                            Vous avez demandé une critique
                         {% else %}
-                            <strong>{{ post.user.username }}</strong> a demandé une critique
+                            {{ post.user.username }} a demandé une critique
                         {% endif %}
                         <br>
                         <small>{{ post.time_created }}</small>
