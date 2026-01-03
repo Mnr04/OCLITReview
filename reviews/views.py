@@ -304,4 +304,4 @@ def posts(request):
         reverse=True
     )
 
-    return render(request, 'reviews/posts.html', {'post': posts})
+    return render(request, 'reviews/posts.html', {'posts': posts})

@@ -1,73 +1,85 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Posts</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
-
     <nav>
-        <h3>LITReview</h3>
-        <ul>
+        <h3>
+            <a href="{% url 'main' %}">LITReview</a>
+        </h3>
+
+        <div class="menu-icon">
+            <span>&#9776;</span>
+        </div>
+
+        <ul class="menu">
             <li><a href="{% url 'main' %}">Flux</a></li>
             <li><a href="{% url 'posts' %}">Posts</a></li>
             <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
             <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
         </ul>
     </nav>
-    <hr>
 
-    <h1>Vos posts</h1>
+    <div id="ticket-container">
 
-    <div>
+        <h2>Vos posts</h2>
+
         {% for post in posts %}
 
             {% if post.content_type == 'REVIEW' %}
-                <div>
-
-                    <p>
-                        Vous avez publié une critique le {{ post.time_created }}
+                <div class="inputGroup"> <p>
+                        <em>Publié le {{ post.time_created }}</em>
                     </p>
 
-                    <h3>{{ post.headline }} - Note : {{ post.rating }}/5</h3>
+                    <h3>Critique : {{ post.headline }}</h3>
+                    <p>Note : {{ post.rating }}/5</p>
                     <p>{{ post.body }}</p>
 
                     <div>
-                        <p>Ticket : {{ post.ticket.title }}</p>
+                        <small>Ticket concerné : {{ post.ticket.title }}</small>
                     </div>
 
                     <p>
                         <a href="{% url 'edit_review' post.id %}"><button>Modifier</button></a>
                         <a href="{% url 'delete_review' post.id %}"><button>Supprimer</button></a>
                     </p>
-
                 </div>
-                <hr> {% elif post.content_type == 'TICKET' %}
-                <div>
 
+            {% elif post.content_type == 'TICKET' %}
+                <div class="inputGroup">
                     <p>
-                        Vous avez demandé une critique le {{ post.time_created }}
+                        <em>Demandé le {{ post.time_created }}</em>
                     </p>
 
-                    <h3>{{ post.title }}</h3>
+                    <h3>Ticket : {{ post.title }}</h3>
                     <p>{{ post.description }}</p>
 
                     {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="Image du livre" width="100">
+                        <div class="image-upload-container">
+                            <img src="{{ post.image.url }}" alt="Image du livre" width="150">
+                        </div>
                     {% endif %}
 
                     <p>
                         <a href="{% url 'edit_ticket' post.id %}"><button>Modifier</button></a>
                         <a href="{% url 'delete_ticket' post.id %}"><button>Supprimer</button></a>
                     </p>
-
                 </div>
-                <hr> {% endif %}
+            {% endif %}
+
+            <hr>
 
         {% empty %}
             <p>Vous n'avez encore rien posté.</p>
         {% endfor %}
+
     </div>
 
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
