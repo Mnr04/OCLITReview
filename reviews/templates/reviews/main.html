@@ -3,103 +3,107 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flux - LITReview</title>
     <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
     <nav>
-    <h3>LITReview</h3>
-    <ul>
-        <li><a href="{% url 'main' %}">Flux</a></li>
-        <li><a href="{% url 'posts' %}">Posts</a></li>
-        <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-        <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-    </ul>
+        <h3>LITReview</h3>
+
+        <div class="menu-icon">
+            <span>&#9776;</span>
+        </div>
+
+        <ul class="menu">
+            <li><a href="{% url 'main' %}">Main</a></li>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+        </ul>
     </nav>
-    <hr>
 
-    <div>
-        <h1>LITReview</h1>
-        <p>Connecté en tant que : {{ user.username }}</p>
-    </div>
+    <div id="ticket-container">
 
-    <hr>
+        <h1>Actualités</h1>
+        <p>Bienvenue {{ user.username }} !</p>
 
-    <div>
-        <a href="{% url 'create_ticket' %}">
-            <button>Demander une critique</button>
-        </a>
-        <a href="{% url 'create_ticket_and_review' %}">
-            <button>Créer une critique</button>
-        </a>
-    </div>
+        <div class="inputGroup">
+            <a href="{% url 'create_ticket' %}">
+                <button type="button">Demander une critique</button>
+            </a>
+            <a href="{% url 'create_ticket_and_review' %}">
+                <button type="button">Créer une critique</button>
+            </a>
+        </div>
 
-    <hr>
-
-    <div>
+        <hr>
 
         {% for post in posts %}
 
             {% if post.content_type == 'REVIEW' %}
-                <div>
+                <div class="inputGroup">
                     <p>
                         {% if post.user == user %}
-                            Vous avez publié une critique
+                            <strong>Vous</strong> avez publié une critique
                         {% else %}
-                            {{ post.user.username }} a publié une critique
+                            <strong>{{ post.user.username }}</strong> a publié une critique
                         {% endif %}
-                         - {{ post.time_created }}
+                        <br>
+                        <small>{{ post.time_created }}</small>
                     </p>
 
-                    <h3>{{ post.headline }} - Note : {{ post.rating }}/5</h3>
+                    <h3>{{ post.headline }}</h3>
+                    <p>Note : {{ post.rating }}/5</p>
                     <p>{{ post.body }}</p>
 
                     <div>
-                        <p>Ticket concerné : {{ post.ticket.title }}</p>
-
+                        <small>Ticket concerné :</small>
+                        <p><strong>{{ post.ticket.title }}</strong></p>
                         {% if post.ticket.image %}
-                            <img src="{{ post.ticket.image.url }}" alt="Image du livre" width="150">
+                            <img src="{{ post.ticket.image.url }}" alt="Image du livre" width="100">
                         {% endif %}
                     </div>
                 </div>
 
-                <hr>
-
             {% elif post.content_type == 'TICKET' %}
-                <div>
+                <div class="inputGroup">
                     <p>
                         {% if post.user == user %}
-                            Vous avez demandé une critique
+                            <strong>Vous</strong> avez demandé une critique
                         {% else %}
-                            {{ post.user.username }} a demandé une critique
+                            <strong>{{ post.user.username }}</strong> a demandé une critique
                         {% endif %}
-                         - {{ post.time_created }}
+                        <br>
+                        <small>{{ post.time_created }}</small>
                     </p>
 
                     <h3>{{ post.title }}</h3>
                     <p>{{ post.description }}</p>
 
                     {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="Image du livre" width="150">
+                        <div class="image-upload-container">
+                            <img src="{{ post.image.url }}" alt="Image du livre" width="150">
+                        </div>
                     {% endif %}
 
                     {% if post.user != user %}
-                        <br>
                         <a href="{% url 'create_review' post.id %}">
-                            <button>Créer une critique</button>
+                            <button type="button">Créer une critique</button>
                         </a>
                     {% endif %}
                 </div>
 
-                <hr>
-
             {% endif %}
+
+            <hr>
 
         {% empty %}
             <p>Aucun billet ni critique à afficher pour le moment.</p>
         {% endfor %}
 
     </div>
-<script src="{% static 'js/script.js' %}"></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
