@@ -41,19 +41,19 @@
             {% csrf_token %}
             <div class="form-errors">{{ form.non_field_errors }}</div>
 
-            <div class="inputGroup">
+            <div class="form-field">
                 <label for="id_headline">Titre de votre critique</label>
                 <input type="text" name="headline" id="id_headline" value="{{ form.headline.value|default_if_none:'' }}" required>
             </div>
             <div>{{ form.headline.errors }}</div>
 
-            <div class="inputGroup">
+            <div class="form-field">
                 <label>Note</label>
                 {{ form.rating }}
             </div>
             <div>{{ form.rating.errors }}</div>
 
-            <div class="inputGroup">
+            <div class="form-field">
                 <label for="id_body">Commentaire</label>
                 <textarea name="body" id="id_body" rows="4" required>{{ form.body.value|default_if_none:'' }}</textarea>
             </div>

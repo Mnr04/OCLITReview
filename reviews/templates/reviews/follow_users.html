@@ -36,7 +36,7 @@
                 </div>
             {% endif %}
 
-            <div class="inputGroup">
+            <div class="form-field">
                 <label for="id_username">Nom d'utilisateur</label>
                 <input type="text" name="username" id="id_username" placeholder="Pseudo à suivre" required>
             </div>
@@ -49,7 +49,7 @@
         <h2>Abonnements</h2>
 
         {% for follow in following %}
-            <div class="inputGroup">
+            <div class="form-field">
                 <label>{{ follow.followed_user.username }}</label>
 
                 <a href="{% url 'unfollow_user' follow.followed_user.id %}" style="text-decoration: none; width: 100%;">
@@ -65,7 +65,7 @@
         <h2>Abonnés</h2>
 
         {% for follow in followers %}
-            <div class="inputGroup">
+            <div class="form-field">
                 <label>{{ follow.user.username }}</label>
                 </div>
         {% empty %}

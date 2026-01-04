@@ -140,32 +140,43 @@ ticket-container
     flex-direction: column;
 }
 
-.inputGroup {
+.form-field {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.inputGroup label {
+.form-field label {
     font-weight: bold;
     color: #333;
     font-size: 14px;
 }
 
-.inputGroup input,
-.inputGroup textarea {
+.form-field input,
+.form-field textarea {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
 }
 
-.inputGroup input:focus,
-.inputGroup textarea:focus {
+.form-field input:focus,
+.form-field textarea:focus {
     outline: none;
     border-color: #2ea44f;
     box-shadow: 0 0 0 3px rgba(46, 164, 79, 0.2);
+}
+
+/*
+Ticket
+*/
+.response_ticket {
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
 }
 
 
@@ -189,7 +200,8 @@ Image upload
 /*
 Posts
 */
-.inputGroup.posts {
+
+.form-field.posts {
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 15px;

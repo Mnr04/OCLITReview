@@ -22,13 +22,12 @@
             <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
         </ul>
     </nav>
-
     <div id="ticket-container">
 
         <h1>Actualités</h1>
         <p>Bienvenue {{ user.username }} !</p>
 
-        <div class="inputGroup">
+        <div class="form-field">
             <a href="{% url 'create_ticket' %}">
                 <button type="button">Demander une critique</button>
             </a>
@@ -36,13 +35,10 @@
                 <button type="button">Créer une critique</button>
             </a>
         </div>
-
         <hr>
-
         {% for post in posts %}
-
             {% if post.content_type == 'REVIEW' %}
-                <div class="inputGroup posts">
+                <div class="form-field posts">
                     <p>
                         {% if post.user == user %}
                             Vous avez publié une critique
@@ -52,22 +48,32 @@
                         <br>
                         <small>{{ post.time_created }}</small>
                     </p>
-
                     <h3>{{ post.headline }}</h3>
                     <p>Note : {{ post.rating }}/5</p>
                     <p>{{ post.body }}</p>
 
+                    <div class = "response_ticket">
                     <div>
-                        <small>Ticket concerné :</small>
+                        En réponse au ticket de : {{ post.ticket.user.username }}
                         <p>{{ post.ticket.title }}</p>
+
                         {% if post.ticket.image %}
-                            <img src="{{ post.ticket.image.url }}" alt="Image du livre" width="100">
+                            <div>
+                                <img src="{{ post.ticket.image.url }}" alt="Couverture du livre">
+                            </div>
                         {% endif %}
                     </div>
+                    <p>
+                        {% if post.user == user %}
+                            <a href="{% url 'edit_review' post.id %}"><button>Modifier</button></a>
+                            <a href="{% url 'delete_review' post.id %}"><button>Supprimer</button></a>
+                        {% endif %}
+                    </p>
+                     </div>
                 </div>
 
             {% elif post.content_type == 'TICKET' %}
-                <div class="inputGroup posts">
+                <div class="form-field posts">
                     <p>
                         {% if post.user == user %}
                             Vous avez demandé une critique

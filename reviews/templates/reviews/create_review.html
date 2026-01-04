@@ -1,57 +1,62 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer une critique</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
-    <nav>
-    <h3>
-            <a href="{% url 'main' %}">LITReview</a>
-        </h3>
+
+<nav>
+    <h3><a href="{% url 'main' %}">LITReview</a></h3>
     <ul>
         <li><a href="{% url 'main' %}">Main</a></li>
         <li><a href="{% url 'posts' %}">Posts</a></li>
         <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
         <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
     </ul>
-    </nav>
-    <hr>
-    <h1>Créer une critique</h1>
+</nav>
+
+<div id="ticket-container">
+    <h2>Créer une critique</h2>
 
     <h3>Vous répondez au ticket de {{ ticket.user }}</h3>
-
-    <p>Titre du livre : {{ ticket.title }}</p>
-    <p>Description : {{ ticket.description }}</p>
+    <p><strong>Livre :</strong> {{ ticket.title }}</p>
+    <p><strong>Description :</strong> {{ ticket.description }}</p>
 
     {% if ticket.image %}
-        <img src="{{ ticket.image.url }}" alt="Image du livre" width="200">
+        <img src="{{ ticket.image.url }}" alt="Image du livre">
     {% endif %}
 
     <hr>
 
     <form method="post">
         {% csrf_token %}
+        <div>{{ form.non_field_errors }}</div>
 
-        {{ form.non_field_errors }}
+        <div class="form-field">
+            <label for="id_headline">Titre de votre critique</label>
+            {{ form.headline }}
+        </div>
+        <div>{{ form.headline.errors }}</div>
 
-        <p>
-            <label>Titre de votre critique : {{ form.headline }}</label>
-        </p>
-        {{ form.headline.errors }}
+        <div class="form-field">
+            <label for="id_rating">Note</label>
+            {{ form.rating }}
+        </div>
+        <div>{{ form.rating.errors }}</div>
 
-        <p>
-            <label>Note : {{ form.rating }}</label>
-        </p>
-        {{ form.rating.errors }}
+        <div class="form-field">
+            <label for="id_body">Commentaire</label>
+            {{ form.body }}
+        </div>
+        <div>{{ form.body.errors }}</div>
 
-        <p>
-            <label>Commentaire : {{ form.body }}</label>
-        </p>
-        {{ form.body.errors }}
-
-        <button type="submit">Envoyer</button>
+        <button id="page_btn" type="submit">Envoyer</button>
     </form>
-
+</div>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

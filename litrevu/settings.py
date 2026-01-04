@@ -122,3 +122,5 @@ AUTH_USER_MODEL = 'reviews.User'
 LOGIN_REDIRECT_URL = '/'
 
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'

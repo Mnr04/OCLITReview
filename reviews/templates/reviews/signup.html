@@ -33,7 +33,7 @@
             <form method="post">
                 {% csrf_token %}
 
-                <div class="inputGroup">
+                <div class="form-field">
                     <label for="id_username">Nom d'utilisateur</label>
                     <input type="text" name="username" id="id_username" placeholder="Choisissez un pseudo" required autocomplete="off">
                 </div>
@@ -41,7 +41,7 @@
                     {{ form.username.errors }}
                 </div>
 
-                <div class="inputGroup">
+                <div class="form-field">
                     <label for="id_password1">Mot de passe</label>
                     <input type="password" name="password1" id="id_password1" placeholder="Votre mot de passe" required>
                 </div>
@@ -49,7 +49,7 @@
                     {{ form.password1.errors }}
                 </div>
 
-                <div class="inputGroup">
+                <div class="form-field">
                     <label for="id_password2">Confirmer</label>
                     <input type="password" name="password2" id="id_password2" placeholder="Confirmez le mot de passe" required>
                 </div>
