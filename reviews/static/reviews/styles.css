@@ -68,7 +68,6 @@ button {
 
 a{
     text-decoration: none;
-    color: white;
 }
 
 #page_btn {
@@ -153,6 +152,7 @@ ticket-container
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-top: 10px;
 }
 
 .form-field label {
@@ -181,7 +181,9 @@ ticket-container
     align-items: center;
     gap: 15px;
     margin-bottom: 10px;
+    margin: auto;
 }
+
 
 /*
 Ticket
@@ -331,5 +333,69 @@ responsive
         margin: 0;
         min-height: 100vh;
         padding: 20px;
+    }
+}
+
+
+@media (max-width: 349px) {
+
+    #ticket-container {
+        padding: 5px;
+    }
+
+    .form-field.posts {
+        background-color: transparent;
+        border: none;
+        border-bottom: 3px solid black;
+        padding: 0 0 30px 0;
+        margin-bottom: 30px;
+    }
+
+    .response_ticket {
+        background-color: transparent;
+        border: none;
+        border-top: 1px solid #ccc;
+    }
+
+    .form-field.main_button {
+        flex-direction: column;
+        padding-bottom: 20px;
+        border-bottom: 3px solid black;
+    }
+
+    .book_img, .book-cover, img, hr {
+        display: none;
+    }
+
+
+    .rating {
+        flex-direction: column;
+    }
+
+    .post_action,
+    .form-field.follow label,
+    h1, h2, h3, p {
+        text-align: center;
+    }
+
+    h1 { font-size: 20px; }
+    p, h2 { font-size: 14px; }
+
+
+    button,
+    .main_button a,
+    .form-field.follow button,
+    .delete_button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .form-field.follow,
+    form .form-field {
+        flex-direction: column;
+    }
+
+    .form-field.follow button {
+        font-size: 12px;
     }
 }
