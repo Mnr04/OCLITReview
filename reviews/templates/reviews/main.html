@@ -16,18 +16,19 @@
         </div>
 
         <ul class="menu">
-            <li><a href="{% url 'main' %}">Main</a></li>
+            <li><a href="{% url 'main' %}">Actualités</a></li>
             <li><a href="{% url 'posts' %}">Posts</a></li>
             <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
             <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
         </ul>
     </nav>
+
     <div id="ticket-container">
 
         <h1>Actualités</h1>
         <p>Bienvenue {{ user.username }} !</p>
 
-        <div class="form-field">
+        <div class="form-field main_button">
             <a href="{% url 'create_ticket' %}">
                 <button type="button">Demander une critique</button>
             </a>
@@ -36,7 +37,9 @@
             </a>
         </div>
         <hr>
+
         {% for post in posts %}
+
             {% if post.content_type == 'REVIEW' %}
                 <div class="form-field posts">
                     <p>
@@ -48,28 +51,48 @@
                         <br>
                         <small>{{ post.time_created }}</small>
                     </p>
-                    <h3>{{ post.headline }}</h3>
-                    <p>Note : {{ post.rating }}/5</p>
+
+                    <div class="rating">
+                        <h3> Avis : {{ post.headline }}</h3>
+                        <span>
+                            {% if post.rating == 0 %}☆☆☆☆☆{% endif %}
+                            {% if post.rating == 1 %}★☆☆☆☆{% endif %}
+                            {% if post.rating == 2 %}★★☆☆☆{% endif %}
+                            {% if post.rating == 3 %}★★★☆☆{% endif %}
+                            {% if post.rating == 4 %}★★★★☆{% endif %}
+                            {% if post.rating == 5 %}★★★★★{% endif %}
+                        </span>
+                    </div>
+
                     <p>{{ post.body }}</p>
 
-                    <div class = "response_ticket">
-                    <div>
-                        En réponse au ticket de : {{ post.ticket.user.username }}
-                        <p>{{ post.ticket.title }}</p>
+                    <div class="response_ticket">
+                        <div>
+                            En réponse au ticket de : {{ post.ticket.user.username }}
+                            <p>À Propos de : {{ post.ticket.title }}</p>
 
-                        {% if post.ticket.image %}
-                            <div>
-                                <img src="{{ post.ticket.image.url }}" alt="Couverture du livre">
+                            <div class="response_ticket">
+                                {% if post.ticket.image %}
+                                    <div class="book_img">
+                                        <img src="{{ post.ticket.image.url }}" alt="Couverture">
+                                    </div>
+                                {% else %}
+                                    <div class="book_img">
+                                        <img src="/media/default.png" alt="Image par défaut">
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
+                        </div>
+
+                        <div class="post_action">
+                            <p>
+                                {% if post.user == user %}
+                                    <a href="{% url 'edit_review' post.id %}"><button class="update_button">Modifier</button></a>
+                                    <a href="{% url 'delete_review' post.id %}"><button class="delete_button">Supprimer</button></a>
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
-                    <p>
-                        {% if post.user == user %}
-                            <a href="{% url 'edit_review' post.id %}"><button>Modifier</button></a>
-                            <a href="{% url 'delete_review' post.id %}"><button>Supprimer</button></a>
-                        {% endif %}
-                    </p>
-                     </div>
                 </div>
 
             {% elif post.content_type == 'TICKET' %}
@@ -84,19 +107,25 @@
                         <small>{{ post.time_created }}</small>
                     </p>
 
-                    <h3>{{ post.title }}</h3>
+                    <h3> À Propos de : {{ post.title }}</h3>
                     <p>{{ post.description }}</p>
 
                     {% if post.image %}
-                        <div class="image-upload-container">
-                            <img src="{{ post.image.url }}" alt="Image du livre" width="150">
+                        <div class="book_img">
+                            <img src="{{ post.image.url }}" alt="Couverture de {{ post.title }}">
+                        </div>
+                    {% else %}
+                        <div class="book_img">
+                            <img src="/media/default.png" alt="Image par défaut">
                         </div>
                     {% endif %}
 
                     {% if post.user != user %}
-                        <a href="{% url 'create_review' post.id %}">
-                            <button type="button">Créer une critique</button>
-                        </a>
+                        <div class="post_action">
+                            <a href="{% url 'create_review' post.id %}">
+                                <button class="create_review" type="button">Créer une critique</button>
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
 

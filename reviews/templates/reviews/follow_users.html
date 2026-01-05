@@ -16,7 +16,7 @@
         </div>
 
         <ul class="menu">
-            <li><a href="{% url 'main' %}">Main</a></li>
+            <li><a href="{% url 'main' %}">Actualités</a></li>
             <li><a href="{% url 'posts' %}">Posts</a></li>
             <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
             <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
@@ -49,11 +49,11 @@
         <h2>Abonnements</h2>
 
         {% for follow in following %}
-            <div class="form-field">
+            <div class="form-field follow">
                 <label>{{ follow.followed_user.username }}</label>
 
-                <a href="{% url 'unfollow_user' follow.followed_user.id %}" style="text-decoration: none; width: 100%;">
-                    <button type="button" class="page_btn">Se désabonner</button>
+                <a href="{% url 'unfollow_user' follow.followed_user.id %}">
+                    <button type="button" class="page_btn delete_button">Se désabonner</button>
                 </a>
             </div>
         {% empty %}
