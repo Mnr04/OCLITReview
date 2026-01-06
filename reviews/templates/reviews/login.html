@@ -1,23 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - LITReview</title>
-    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
-</head>
-<body>
-    <nav>
-        <h3>LITReview</h3>
-    </nav>
+{% extends 'reviews/base.html' %}
 
+{% block title %}Connexion - LITReview{% endblock %}
+
+{% block content %}
     <div id='container'>
         <div id="signin">
             <h2>Pas encore de compte ?</h2>
             <p>Inscrivez-vous pour partager vos critiques.</p>
             <br>
-            <button><a href="{% url 'signup' %}">S'inscrire</a></button>
+            <a href="{% url 'signup' %}">
+                <button type="button">S'inscrire</button>
+            </a>
         </div>
 
         <div id="connexion">
@@ -48,5 +41,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

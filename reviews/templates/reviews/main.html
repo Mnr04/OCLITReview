@@ -1,28 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flux - LITReview</title>
-    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
-</head>
-<body>
-    <nav>
-        <h3>LITReview</h3>
+{% extends 'reviews/base.html' %}
 
-        <div class="menu-icon">
-            <span>&#9776;</span>
-        </div>
+{% block title %}Flux - LITReview{% endblock %}
 
-        <ul class="menu">
-            <li><a href="{% url 'main' %}">Actualités</a></li>
-            <li><a href="{% url 'posts' %}">Posts</a></li>
-            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-        </ul>
-    </nav>
-
+{% block content %}
     <div id="ticket-container">
 
         <h1>Actualités</h1>
@@ -54,7 +34,7 @@
 
                     <div class="rating">
                         <h3> Avis : {{ post.headline }}</h3>
-                        <span >
+                        <span>
                             {% if post.rating == 0 %}☆☆☆☆☆{% endif %}
                             {% if post.rating == 1 %}★☆☆☆☆{% endif %}
                             {% if post.rating == 2 %}★★☆☆☆{% endif %}
@@ -138,7 +118,4 @@
         {% endfor %}
 
     </div>
-
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+{% endblock %}

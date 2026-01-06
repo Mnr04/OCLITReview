@@ -76,6 +76,13 @@ a{
 
 .delete_button{
     background-color: #E52D05 ;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+button.delete_button.a{
+    color: white;
 }
 
 .update_button{

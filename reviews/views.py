@@ -255,19 +255,16 @@ def main(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    # Get follow id list
     follows = UserFollows.objects.filter(user=request.user)
     followed_users_ids = []
     for follow in follows:
         followed_users_ids.append(follow.followed_user.id)
 
-    # Handle tickets
     tickets_me = Ticket.objects.filter(user=request.user)
     tickets_followed = Ticket.objects.filter(user__in=followed_users_ids)
     tickets = tickets_me | tickets_followed
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
-    # Handle Review
     reviews_me = Review.objects.filter(user=request.user)
     reviews_followed = Review.objects.filter(user__in=followed_users_ids)
     reviews_answers = Review.objects.filter(ticket__in=tickets_me)

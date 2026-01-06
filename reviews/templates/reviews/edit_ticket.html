@@ -1,26 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier le ticket</title>
-    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
-</head>
-<body>
-    <nav>
-        <h3>
-            <a href="{% url 'main' %}">LITReview</a>
-        </h3>
-        <div class="menu-icon"><span>&#9776;</span></div>
-        <ul class="menu">
-            <li><a href="{% url 'main' %}">Main</a></li>
-            <li><a href="{% url 'posts' %}">Posts</a></li>
-            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-        </ul>
-    </nav>
+{% extends 'reviews/base.html' %}
 
+{% block title %}Modifier le ticket - LITReview{% endblock %}
+
+{% block content %}
     <div id="ticket-container">
 
         <h2>Modifier votre ticket</h2>
@@ -64,7 +46,4 @@
         </form>
 
     </div>
-
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+{% endblock %}

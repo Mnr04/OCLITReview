@@ -1,28 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Posts - LITReview</title>
-    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
-</head>
-<body>
-    <nav>
-        <h3>LITReview</h3>
+{% extends 'reviews/base.html' %}
 
-        <div class="menu-icon">
-            <span>&#9776;</span>
-        </div>
+{% block title %}Mes Posts - LITReview{% endblock %}
 
-        <ul class="menu">
-            <li><a href="{% url 'main' %}">Actualités</a></li>
-            <li><a href="{% url 'posts' %}">Posts</a></li>
-            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-        </ul>
-    </nav>
-
+{% block content %}
     <div id="ticket-container">
 
         <h1>Vos posts</h1>
@@ -115,7 +95,4 @@
         {% endfor %}
 
     </div>
-
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LITReview{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
+</head>
+<body>
+
+    <nav>
+        <h3>
+            <a href="{% url 'main' %}">LITReview</a>
+        </h3>
+
+        {% if user.is_authenticated %}
+            <div class="menu-icon">
+                <span>&#9776;</span>
+            </div>
+
+            <ul class="menu">
+                <li><a href="{% url 'main' %}">Actualités</a></li>
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
+                <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/script.js' %}"></script>
+    {% endif %}
+
+</body>
+</html>
