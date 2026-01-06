@@ -48,7 +48,16 @@ def main(request):
         reverse=True
     )
 
-    return render(request, 'reviews/main.html', {'posts': posts})
+    my_reviewed_tickets = []
+    for review in reviews_me:
+        my_reviewed_tickets.append(review.ticket.id)
+
+    context = {
+        'posts': posts,
+        'my_reviewed_tickets': my_reviewed_tickets
+    }
+
+    return render(request, 'reviews/main.html', context)
 
 def log_out(request):
     logout(request)
@@ -102,9 +111,8 @@ def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
 
     if ticket.user == request.user:
-        if request.method == 'POST':
-            ticket.delete()
-            return redirect('main')
+        ticket.delete()
+        return redirect('main')
 
     return redirect('main')
 

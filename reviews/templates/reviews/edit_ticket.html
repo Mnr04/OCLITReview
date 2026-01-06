@@ -37,7 +37,7 @@
             </div>
             <div >{{ form.image.errors }}</div>
 
-            <button id="page_btn" type="submit">Enregistrer les modifications</button>
+            <button class="page_btn" type="submit">Enregistrer les modifications</button>
         </form>
 
         <form method="post" action="{% url 'delete_ticket' ticket.id %}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce ticket ?');" style="width: 100%;">

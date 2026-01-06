@@ -11,7 +11,9 @@
     <p><strong>Description :</strong> {{ ticket.description }}</p>
 
     {% if ticket.image %}
+        <div class="image_part">
         <img src="{{ ticket.image.url }}" alt="Image du livre">
+        </div>
     {% endif %}
 
     <hr>

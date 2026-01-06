@@ -6,11 +6,17 @@ body {
     font-family: Tahoma, sans-serif;
     background-color: #f3f4f6;
     margin: 0;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
 }
 
 /*
-Nav
+NAV
  */
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -36,7 +42,6 @@ nav ul {
 }
 
 nav a {
-    text-decoration: none;
     color: black;
     font-weight: bold;
 }
@@ -52,48 +57,41 @@ nav a:hover {
 }
 
 /*
-Boutons
-*/
+Bouttons
+ */
 
 button {
     cursor: pointer;
     padding: 10px 20px;
     font-size: 14px;
-    border: 1px solid rgba(27, 31, 35, 0.15);
+    border: 1px solid black;
     border-radius: 6px;
     color: #ffffff;
     background-color: #2ea44f;
-    text-decoration: none;
+    border: 1px solid transparent;
 }
 
-a{
-    text-decoration: none;
+.delete_button {
+    background-color: #E52D05;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
 }
 
-#page_btn {
-    margin-top: 20px;
-}
 
-.delete_button{
-    background-color: #E52D05 ;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-}
 
-button.delete_button.a{
-    color: white;
-}
-
-.update_button{
+.update_button {
     background-color: #757575;
 }
 
+.page_btn{
+margin-top: 10px;
+margin-bottom: 10px;
+}
 
 /*
-Page Login / Signup
-*/
-
+ LOGIN
+ */
 #container {
     display: flex;
     flex-direction: row;
@@ -111,48 +109,30 @@ Page Login / Signup
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
 #signin {
     border-right: 1px solid #ccc;
 }
 
-#container.vertical {
-    flex-direction: column-reverse;
-    margin-top: 20px;
-    box-shadow: none;
-    background-color: transparent;
-}
-
-.vertical-layout #signin {
-    border-right: none;
-    border-top: 1px solid #ccc;
-    margin-top: 20px;
-    padding-top: 40px;
-}
-
-/*
-ticket-container
- */
-
 #ticket-container {
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 50px auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-#ticket-container form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+.welcome_msg {
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
+
+/*
+FORMULAIRES
+*/
 
 .form-field {
     margin-bottom: 20px;
@@ -164,7 +144,6 @@ ticket-container
 
 .form-field label {
     font-weight: bold;
-    color: #333;
     font-size: 14px;
 }
 
@@ -174,6 +153,7 @@ ticket-container
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
+    font-family: inherit;
 }
 
 .form-field input:focus,
@@ -183,105 +163,113 @@ ticket-container
     box-shadow: 0 0 0 3px rgba(46, 164, 79, 0.2);
 }
 
-.rating {
+/*
+POSTS
+*/
+
+.post_block {
+    background-color: white;
+    border-radius: 12px;
+    padding: 26px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header_info {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.content_row {
+    display: flex;
+}
+
+.text_part {
+    flex: 1;
+}
+
+.image_part img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/*
+REVIEWS
+*/
+
+.review_header {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 10px;
-    margin: auto;
 }
 
-
-/*
-Ticket
-*/
-.response_ticket {
-    border: 1px solid #ccc;
-    background-color: #ffffff;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 4px;
+.star_rating {
+    color: #ffc107;
+    font-size: 1.2em;
+    letter-spacing: 2px;
 }
 
-
-/*
-Image upload
-*/
-
-.image-upload-container {
-    width: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.image-upload-container label {
-    font-weight: bold;
-}
-
-.book_img {
-    height: 300px;
-    width: 200px;
-    background-color: #f3f4f6;
-    border-radius: 8px;
-    margin: 10px auto;
-}
-
-.book_img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-/*
-Posts
-*/
-
-.form-field.posts {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 15px;
+.ticket_ref {
     background-color: #f9f9f9;
-     }
+    border-left: 4px solid #ccc;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 0 8px 8px 0;
+}
 
+.ref_info {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.ref_title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 /*
-Main page
+buttons
 */
-.form-field.main_button{
+
+.main_button {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 20px;
+    border: none;
 }
 
-.post_action{
+.button_group {
+    margin-top: 20px;
     text-align: center;
 }
 
-/*
-Follow Page
-*/
-
-.form-field.follow{
+.form-field.follow {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
 }
 
-
-
 /*
-responsive
- */
+Responsive
+*/
 
-@media (max-width: 768px) {
-
-    .menu-icon {
-        display: block;
-    }
+@media (max-width:615px){
+    .menu-icon { display: block; }
 
     nav ul {
         display: none;
@@ -295,114 +283,99 @@ responsive
         gap: 0;
     }
 
-    nav li {
-        margin: 15px 0;
-        width: 100%;
-    }
+    nav li { margin: 15px 0; width: 100%; }
+    nav ul.active { display: flex; }
+}
 
-    nav ul.active {
-        display: flex;
-    }
-
+@media (max-width: 349px) {
     #container {
-        flex-direction: column-reverse;
         width: 100%;
-        margin-top: 0;
+        margin: 0;
+        padding: 5px;
         box-shadow: none;
-        background-color: white;
-        padding: 20px;
     }
 
     #connexion, #signin {
         width: 100%;
-        padding: 20px 0;
+        padding: 15px 5px;
         border: none;
-        align-items: stretch;
-    }
-
-    #connexion h2, #signin h2, #signin p {
-        text-align: center;
-    }
-
-    h2 {
-        font-size: 24px;
     }
 
     #signin {
-        margin-top: 20px;
         border-top: 1px solid #ccc;
-        padding-top: 40px;
+        margin-top: 10px;
     }
 
-    #ticket-container {
+    .form-field input {
         width: 100%;
-        max-width: none;
-        margin: 0;
-        min-height: 100vh;
-        padding: 20px;
+        min-width: 0;
     }
-}
 
-
-@media (max-width: 349px) {
+    h1, h2 {
+        font-size: 14px;
+        text-align: center;
+    }
 
     #ticket-container {
         padding: 5px;
     }
 
-    .form-field.posts {
+    .post_block {
         background-color: transparent;
-        border: none;
+        border-radius: 0;
+        box-shadow: none;
         border-bottom: 3px solid black;
         padding: 0 0 30px 0;
-        margin-bottom: 30px;
     }
 
-    .response_ticket {
+    .ticket_ref {
         background-color: transparent;
         border: none;
         border-top: 1px solid #ccc;
+        margin-top: 15px;
+        padding-left: 0;
     }
 
-    .form-field.main_button {
+    .main_button {
         flex-direction: column;
         padding-bottom: 20px;
         border-bottom: 3px solid black;
     }
 
-    .book_img, .book-cover, img, hr {
+    .image_part, img, hr {
         display: none;
     }
 
-
-    .rating {
+    .review_header {
         flex-direction: column;
     }
 
-    .post_action,
+    .button_group,
+    .header_info,
     .form-field.follow label,
-    h1, h2, h3, p {
+    h3, p {
         text-align: center;
     }
 
-    h1 { font-size: 20px; }
-    p, h2 { font-size: 14px; }
-
+    .header_info {
+        flex-direction: column;
+        gap: 5px;
+    }
 
     button,
     .main_button a,
-    .form-field.follow button,
-    .delete_button {
+    .delete_button,
+    .update_button {
         width: 100%;
         margin-top: 10px;
     }
 
-    .form-field.follow,
-    form .form-field {
-        flex-direction: column;
-    }
 
     .form-field.follow button {
         font-size: 12px;
+    }
+
+    .content_row {
+        display: block;
     }
 }

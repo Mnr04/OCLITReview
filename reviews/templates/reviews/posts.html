@@ -11,84 +11,84 @@
         {% for post in posts %}
 
             {% if post.content_type == 'REVIEW' %}
-                <div class="form-field posts">
-                    <p>
-                        Vous avez publié une critique
-                        <br>
-                        <small>{{ post.time_created }}</small>
-                    </p>
-                    <div class="rating">
-                        <h3> Avis : {{ post.headline }}</h3>
-                        <span>
+
+                <div class="post_block">
+
+                    <div class="header_info">
+                        <p><strong>Vous</strong> avez publié une critique</p>
+                        <span class="date_time">{{ post.time_created|date:"d M Y, H:i" }}</span>
+                    </div>
+
+                    <div class="review_header">
+                        <h3>{{ post.headline }}</h3>
+                        <div class="star_rating">
                             {% if post.rating == 0 %}☆☆☆☆☆{% endif %}
                             {% if post.rating == 1 %}★☆☆☆☆{% endif %}
                             {% if post.rating == 2 %}★★☆☆☆{% endif %}
                             {% if post.rating == 3 %}★★★☆☆{% endif %}
                             {% if post.rating == 4 %}★★★★☆{% endif %}
                             {% if post.rating == 5 %}★★★★★{% endif %}
-                        </span>
+                        </div>
                     </div>
-                    <p>{{ post.body }}</p>
 
-                    <div class="response_ticket">
-                        <div>
-                            En réponse au ticket de : {{ post.ticket.user.username }}
-                            <p>À Propos de : {{ post.ticket.title }}</p>
+                    <p class="review_text">{{ post.body }}</p>
 
-                            <div class="response_ticket">
+                    <div class="ticket_ref">
+                        {% if post.ticket.user == post.user %}
+                            <p class="ref_info">Concernant : </p>
+                        {% else %}
+                            <p class="ref_info">En réponse au ticket de : {{ post.ticket.user.username }}</p>
+                        {% endif %}
+                        <p class="ref_title">Livre : {{ post.ticket.title }}</p>
+
+                        <div class="content_row">
+                            <div class="image_part">
                                 {% if post.ticket.image %}
-                                    <div class="book_img">
-                                        <img src="{{ post.ticket.image.url }}" alt="Couverture">
-                                    </div>
+                                    <img src="{{ post.ticket.image.url }}" alt="Couverture">
                                 {% else %}
-                                    <div class="book_img">
-                                        <img src="/media/default.png" alt="Image par défaut">
-                                    </div>
+                                    <img src="/media/default.png" alt="Image par défaut">
                                 {% endif %}
                             </div>
                         </div>
+                    </div>
 
-                        <div class="post_action">
-                            <p>
-                                <a href="{% url 'edit_review' post.id %}"><button class="update_button">Modifier</button></a>
-                                <a href="{% url 'delete_review' post.id %}"><button class="delete_button">Supprimer</button></a>
-                            </p>
-                        </div>
+                    <div class="button_group">
+                        <a href="{% url 'edit_review' post.id %}"><button class="update_button">Modifier</button></a>
+                        <a href="{% url 'delete_review' post.id %}"><button class="delete_button">Supprimer</button></a>
                     </div>
                 </div>
 
             {% elif post.content_type == 'TICKET' %}
-                <div class="form-field posts">
-                    <p>
-                        Vous avez demandé une critique
-                        <br>
-                        <small>{{ post.time_created }}</small>
-                    </p>
 
-                    <h3>À Propos de : {{ post.title }}</h3>
-                    <p>{{ post.description }}</p>
+                <div class="post_block">
 
-                    {% if post.image %}
-                        <div class="book_img">
-                            <img src="{{ post.image.url }}" alt="Couverture de {{ post.title }}">
+                    <div class="header_info">
+                        <p><strong>Vous</strong> avez demandé une critique</p>
+                        <span class="date_time">{{ post.time_created|date:"d M Y, H:i" }}</span>
+                    </div>
+
+                    <div class="content_row">
+                        <div class="text_part">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.description }}</p>
                         </div>
-                    {% else %}
-                        <div class="book_img">
-                            <img src="/media/default.png" alt="Image par défaut">
-                        </div>
-                    {% endif %}
 
-                    <div class="post_action">
-                        <p>
-                            <a href="{% url 'edit_ticket' post.id %}"><button class="update_button">Modifier</button></a>
-                            <a href="{% url 'delete_ticket' post.id %}"><button class="delete_button">Supprimer</button></a>
-                        </p>
+                        <div class="image_part">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Couverture">
+                            {% else %}
+                                <img src="/media/default.png" alt="Image par défaut">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="button_group">
+                        <a href="{% url 'edit_ticket' post.id %}"><button class="update_button">Modifier</button></a>
+                        <a href="{% url 'delete_ticket' post.id %}"><button class="delete_button">Supprimer</button></a>
                     </div>
                 </div>
 
             {% endif %}
-
-            <hr>
 
         {% empty %}
             <p>Vous n'avez encore rien posté.</p>
