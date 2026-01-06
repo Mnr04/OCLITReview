@@ -21,12 +21,15 @@ class Review(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     headline = models.CharField(max_length=128)
-    body = models.CharField(max_length=8192, blank=True)
+    body = models.TextField(max_length=8192, blank=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.headline
+
+    class Meta:
+        unique_together = ('ticket', 'user')
 
 class UserFollows(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='following')
