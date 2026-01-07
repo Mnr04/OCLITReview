@@ -120,6 +120,7 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'reviews.User'
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
 
 
 MEDIA_ROOT = BASE_DIR / 'media'
