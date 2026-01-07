@@ -1,5 +1,3 @@
-# OC_LITReview
-
 # LITReview - Book Review Application
 
 ## Description
