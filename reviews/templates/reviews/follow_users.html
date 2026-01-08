@@ -45,8 +45,12 @@
         <h2>Abonnés</h2>
 
         {% for follow in followers %}
-            <div class="form-field">
+            <div class="form-field follow">
                 <label>{{ follow.user.username }}</label>
+
+                <a href="{% url 'block_user' follow.user.id %}" class="button delete_button">
+                    Bloquer
+                </a>
             </div>
         {% empty %}
             <p>Aucun abonné pour l'instant.</p>

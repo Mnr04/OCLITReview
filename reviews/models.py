@@ -40,3 +40,13 @@ class UserFollows(models.Model):
 
     def __str__(self):
         return f"{self.user} suit {self.followed_user}"
+
+class BlockedUser(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='user_who_blocks')
+    blocked_user = models.ForeignKey(to=User,on_delete=models.CASCADE,related_name='user_blocked')
+
+    class Meta:
+        unique_together = ('user', 'blocked_user')
+
+    def __str__(self):
+        return f"{self.user} bloque {self.blocked_user}"

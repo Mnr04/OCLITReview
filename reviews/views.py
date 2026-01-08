@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Ticket, Review, UserFollows, User
+from .models import Ticket, Review, UserFollows, User, BlockedUser
 from .forms import SignupForm, TicketForm, ReviewForm, FollowUserForm
 from itertools import chain
 from django.db.models import CharField, Value
@@ -184,6 +184,10 @@ def follow_users(request):
             username = form.cleaned_data['username']
             try:
                 user_to_follow = User.objects.get(username=username)
+
+                if BlockedUser.objects.filter(user=request.user, blocked_user=user_to_follow).exists():
+                    message = "Vous avez bloqué cet utilisateur. Débloquez-le d'abord."
+
                 if user_to_follow == request.user:
                     message = "Vous ne pouvez pas vous suivre vous-même."
                 elif UserFollows.objects.filter(user=request.user, followed_user=user_to_follow).exists():
@@ -209,4 +213,16 @@ def follow_users(request):
 def unfollow_user(request, user_id):
     user_to_unfollow = get_object_or_404(User, id=user_id)
     UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()
+    return redirect('follow_users')
+
+@login_required
+def block_user(request, user_id):
+    user_to_block = get_object_or_404(User, id=user_id)
+
+    if user_to_block != request.user:
+        BlockedUser.objects.get_or_create(user=request.user, blocked_user=user_to_block)
+
+        UserFollows.objects.filter(user=request.user, followed_user=user_to_block).delete()
+        UserFollows.objects.filter(user=user_to_block, followed_user=request.user).delete()
+
     return redirect('follow_users')
