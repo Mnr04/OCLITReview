@@ -21,39 +21,41 @@
                 <label for="id_title">Titre du livre</label>
                 <input type="text" name="title" id="id_title" placeholder="Titre du livre..." required>
             </div>
-            <div >{{ ticket_form.title.errors }}</div>
+            <div>{{ ticket_form.title.errors }}</div>
 
             <div class="form-field">
                 <label for="id_description">Description</label>
                 <textarea name="description" id="id_description" rows="4" placeholder="Description du livre..."></textarea>
             </div>
-            <div >{{ ticket_form.description.errors }}</div>
+            <div>{{ ticket_form.description.errors }}</div>
 
-            <div >
+            <div class="form-field">
                 <label for="id_image">Image de couverture</label>
                 <input type="file" name="image" id="id_image">
             </div>
-            <div >{{ ticket_form.image.errors }}</div>
+            <div>{{ ticket_form.image.errors }}</div>
+
+            <h3>Votre Critique</h3>
 
             <div class="form-field">
                 <label for="id_headline">Titre de votre critique</label>
                 <input type="text" name="headline" id="id_headline" placeholder="Ex: Je recommande !" required>
             </div>
-            <div >{{ review_form.headline.errors }}</div>
+            <div>{{ review_form.headline.errors }}</div>
 
             <div class="form-field">
                 <label>Note :</label>
-                <div>
+                <div class="radio-group">
                     {{ review_form.rating }}
                 </div>
             </div>
-            <div >{{ review_form.rating.errors }}</div>
+            <div>{{ review_form.rating.errors }}</div>
 
             <div class="form-field">
                 <label for="id_body">Commentaire</label>
                 <textarea name="body" id="id_body" rows="4" placeholder="Écrivez votre critique ici..." required></textarea>
             </div>
-            <div >{{ review_form.body.errors }}</div>
+            <div>{{ review_form.body.errors }}</div>
 
             <button type="submit">Envoyer</button>
         </form>

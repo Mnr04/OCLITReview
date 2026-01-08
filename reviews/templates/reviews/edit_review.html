@@ -1,30 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier votre critique</title>
-    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
-</head>
-<body>
-    <nav>
-    <h3>
-            <a href="{% url 'main' %}">LITReview</a>
-        </h3>
+{% extends 'reviews/base.html' %}
 
-        <div class="menu-icon">
-            <span>&#9776;</span>
-        </div>
+{% block title %}Modifier votre critique{% endblock %}
 
-        <ul class="menu">
-            <li><a href="{% url 'main' %}">Main</a></li>
-            <li><a href="{% url 'posts' %}">Posts</a></li>
-            <li><a href="{% url 'follow_users' %}">Abonnements</a></li>
-            <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-        </ul>
-    </nav>
-
+{% block content %}
     <div id="ticket-container">
 
         <h2>Modifier une critique</h2>
@@ -34,10 +12,12 @@
         <p>{{ ticket.description }}</p>
 
         {% if ticket.image %}
-            <img src="{{ ticket.image.url }}" alt="Image du livre">
+            <div class="image_part">
+                <img src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+            </div>
         {% endif %}
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-errors">{{ form.non_field_errors }}</div>
 
@@ -49,7 +29,9 @@
 
             <div class="form-field">
                 <label>Note</label>
-                {{ form.rating }}
+                <div class="radio-group">
+                    {{ form.rating }}
+                </div>
             </div>
             <div>{{ form.rating.errors }}</div>
 
@@ -59,18 +41,15 @@
             </div>
             <div>{{ form.body.errors }}</div>
 
-            <button id="page_btn" type="submit">Enregistrer</button>
+            <button type="submit">Enregistrer</button>
         </form>
 
         <hr>
 
         <form method="post" action="{% url 'delete_review' review.id %}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer cette critique ?');">
             {% csrf_token %}
-            <button id="page_btn" type="submit">Supprimer la critique</button>
+            <button type="submit" class="delete_button">Supprimer</button>
         </form>
 
     </div>
-
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+{% endblock %}

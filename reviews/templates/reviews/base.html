@@ -10,9 +10,9 @@
 <body>
 
     <nav>
-        <h3>
+        <div class="nav-title">
             <a href="{% url 'main' %}">LITReview</a>
-        </h3>
+        </div>
 
         {% if user.is_authenticated %}
             <div class="menu-icon">
@@ -28,8 +28,10 @@
         {% endif %}
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
     {% if user.is_authenticated %}
         <script src="{% static 'js/script.js' %}"></script>

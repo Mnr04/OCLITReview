@@ -15,34 +15,34 @@
                 <label for="id_title">Titre</label>
                 <input type="text" name="title" id="id_title" value="{{ form.title.value|default_if_none:'' }}" required>
             </div>
-            <div >{{ form.title.errors }}</div>
+            <div>{{ form.title.errors }}</div>
 
             <div class="form-field">
                 <label for="id_description">Description</label>
                 <textarea name="description" id="id_description" rows="4" required>{{ form.description.value|default_if_none:'' }}</textarea>
             </div>
-            <div >{{ form.description.errors }}</div>
+            <div>{{ form.description.errors }}</div>
 
             {% if form.instance.image %}
             <div>
                 <p>
-                    Image actuelle : <a href="{{ form.instance.image.url }}" target="_blank" >Voir l'image</a>
+                    Image actuelle : <a href="{{ form.instance.image.url }}" target="_blank" style="text-decoration: underline;">Voir l'image</a>
                 </p>
             </div>
             {% endif %}
 
-            <div >
+            <div class="form-field">
                 <label for="id_image">Changer l'image</label>
                 <input type="file" name="image" id="id_image">
             </div>
-            <div >{{ form.image.errors }}</div>
+            <div>{{ form.image.errors }}</div>
 
             <button class="page_btn" type="submit">Enregistrer les modifications</button>
         </form>
 
         <form method="post" action="{% url 'delete_ticket' ticket.id %}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce ticket ?');" style="width: 100%;">
             {% csrf_token %}
-            <button type="submit" id="page_btn">Supprimer le Ticket</button>
+            <button type="submit" class="page_btn delete_button">Supprimer le Ticket</button>
         </form>
 
     </div>

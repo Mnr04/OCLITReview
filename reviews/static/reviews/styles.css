@@ -47,7 +47,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #2ea44f;
+    color: #1f7a39;
 }
 
 .menu-icon {
@@ -57,41 +57,45 @@ nav a:hover {
 }
 
 /*
-Bouttons
+BOUTONS
  */
 
-button {
+button, .button-link {
     cursor: pointer;
     padding: 10px 20px;
     font-size: 14px;
     border: 1px solid black;
     border-radius: 6px;
     color: #ffffff;
-    background-color: #2ea44f;
+    background-color: #1f7a39;
     border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 48px;
 }
 
 .delete_button {
-    background-color: #E52D05;
+    background-color: #b91c1c;
     color: #ffffff;
     padding: 10px 20px;
     border-radius: 6px;
 }
 
-
-
 .update_button {
     background-color: #757575;
 }
 
-.page_btn{
-margin-top: 10px;
-margin-bottom: 10px;
+.page_btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /*
- LOGIN
- */
+LOGIN
+*/
+
 #container {
     display: flex;
     flex-direction: row;
@@ -115,6 +119,10 @@ margin-bottom: 10px;
     border-right: 1px solid #ccc;
 }
 
+#signin .button-link {
+    margin-top: 15px;
+}
+
 #ticket-container {
     display: flex;
     flex-direction: column;
@@ -131,8 +139,8 @@ margin-bottom: 10px;
 }
 
 /*
-FORMULAIRES
-*/
+FORM
+ */
 
 .form-field {
     margin-bottom: 20px;
@@ -147,24 +155,55 @@ FORMULAIRES
     font-size: 14px;
 }
 
-.form-field input,
+.form-field input:not([type="radio"]),
 .form-field textarea {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
     font-family: inherit;
+    min-height: 48px;
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
     outline: none;
-    border-color: #2ea44f;
-    box-shadow: 0 0 0 3px rgba(46, 164, 79, 0.2);
+    border-color: #1f7a39;
+    box-shadow: 0 0 0 3px rgba(31, 122, 57, 0.2);
+}
+
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 5px 15px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    min-height: 20px;
+    margin: 0;
+    cursor: pointer;
 }
 
 /*
-POSTS
+ POSTS
 */
 
 .post_block {
@@ -212,7 +251,7 @@ REVIEWS
 }
 
 .star_rating {
-    color: #ffc107;
+    color: #b48900;
     font-size: 1.2em;
     letter-spacing: 2px;
 }
@@ -237,7 +276,7 @@ REVIEWS
 }
 
 /*
-buttons
+BUTTONS
 */
 
 .main_button {
@@ -265,10 +304,10 @@ buttons
 }
 
 /*
-Responsive
+RESPONSIVE
 */
 
-@media (max-width:615px){
+@media (max-width: 615px) {
     .menu-icon { display: block; }
 
     nav ul {
@@ -287,32 +326,39 @@ Responsive
     nav ul.active { display: flex; }
 }
 
-@media (max-width: 349px) {
+@media (max-width: 768px) {
     #container {
+        flex-direction: column;
         width: 100%;
         margin: 0;
         padding: 5px;
         box-shadow: none;
+        height: auto;
     }
 
     #connexion, #signin {
         width: 100%;
-        padding: 15px 5px;
+        padding: 30px 15px;
         border: none;
+        border-bottom: 1px solid #ccc;
     }
 
     #signin {
-        border-top: 1px solid #ccc;
-        margin-top: 10px;
+        border-bottom: 1px solid #ccc;
+        margin-top: 0;
     }
 
-    .form-field input {
+    #connexion {
+        border-bottom: none;
+    }
+
+    .form-field input:not([type="radio"]) {
         width: 100%;
         min-width: 0;
     }
 
     h1, h2 {
-        font-size: 14px;
+        font-size: 18px;
         text-align: center;
     }
 
@@ -342,12 +388,14 @@ Responsive
         border-bottom: 3px solid black;
     }
 
-    .image_part, img, hr {
+    .image_part, hr {
         display: none;
     }
 
     .review_header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
     }
 
     .button_group,
@@ -363,16 +411,17 @@ Responsive
     }
 
     button,
+    .button-link,
     .main_button a,
     .delete_button,
     .update_button {
-        width: 100%;
+
         margin-top: 10px;
     }
 
-
-    .form-field.follow button {
-        font-size: 12px;
+    .form-field.follow {
+        flex-direction: column;
+        gap: 10px;
     }
 
     .content_row {

@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="review_header">
-                        <h3>{{ post.headline }}</h3>
+                        <h2>{{ post.headline }}</h2>
                         <div class="star_rating">
                             {% if post.rating == 0 %}☆☆☆☆☆{% endif %}
                             {% if post.rating == 1 %}★☆☆☆☆{% endif %}
@@ -44,7 +44,7 @@
                         <div class="content_row">
                             <div class="image_part">
                                 {% if post.ticket.image %}
-                                    <img src="{{ post.ticket.image.url }}" alt="Couverture">
+                                    <img src="{{ post.ticket.image.url }}" alt="Couverture de {{ post.ticket.title }}">
                                 {% else %}
                                     <img src="/media/default.png" alt="Image par défaut">
                                 {% endif %}
@@ -53,8 +53,12 @@
                     </div>
 
                     <div class="button_group">
-                        <a href="{% url 'edit_review' post.id %}"><button class="update_button">Modifier</button></a>
-                        <a href="{% url 'delete_review' post.id %}"><button class="delete_button">Supprimer</button></a>
+                        <a href="{% url 'edit_review' post.id %}" class="button-link update_button" aria-label="Modifier votre critique sur {{ post.ticket.title }}">
+                            Modifier
+                        </a>
+                        <a href="{% url 'delete_review' post.id %}" class="button-link delete_button" aria-label="Supprimer votre critique sur {{ post.ticket.title }}">
+                            Supprimer
+                        </a>
                     </div>
                 </div>
 
@@ -69,13 +73,13 @@
 
                     <div class="content_row">
                         <div class="text_part">
-                            <h3>{{ post.title }}</h3>
+                            <h2>{{ post.title }}</h2>
                             <p>{{ post.description }}</p>
                         </div>
 
                         <div class="image_part">
                             {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="Couverture">
+                                <img src="{{ post.image.url }}" alt="Couverture de {{ post.title }}">
                             {% else %}
                                 <img src="/media/default.png" alt="Image par défaut">
                             {% endif %}
@@ -83,8 +87,12 @@
                     </div>
 
                     <div class="button_group">
-                        <a href="{% url 'edit_ticket' post.id %}"><button class="update_button">Modifier</button></a>
-                        <a href="{% url 'delete_ticket' post.id %}"><button class="delete_button">Supprimer</button></a>
+                        <a href="{% url 'edit_ticket' post.id %}" class="button-link update_button" aria-label="Modifier votre ticket {{ post.title }}">
+                            Modifier
+                        </a>
+                        <a href="{% url 'delete_ticket' post.id %}" class="button-link delete_button" aria-label="Supprimer votre ticket {{ post.title }}">
+                            Supprimer
+                        </a>
                     </div>
                 </div>
 
