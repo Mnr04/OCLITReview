@@ -40,8 +40,6 @@
             <p>Vous ne suivez personne pour l'instant.</p>
         {% endfor %}
 
-        <hr>
-
         <h2>Abonnés</h2>
 
         {% for follow in followers %}
@@ -55,6 +53,20 @@
         {% empty %}
             <p>Aucun abonné pour l'instant.</p>
         {% endfor %}
+
+<h2>Utilisateurs bloqués</h2>
+
+{% for blocked in blocked_users %}
+    <div class="form-field follow">
+        <label>{{ blocked.blocked_user.username }}</label>
+
+        <a href="{% url 'unblock_user' blocked.blocked_user.id %}">
+            <button class="delete_button" type="button">Débloquer</button>
+        </a>
+    </div>
+{% empty %}
+    <p>Vous n'avez bloqué personne.</p>
+{% endfor %}
 
     </div>
 {% endblock %}

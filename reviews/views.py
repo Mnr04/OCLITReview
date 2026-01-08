@@ -185,26 +185,35 @@ def follow_users(request):
             try:
                 user_to_follow = User.objects.get(username=username)
 
-                if BlockedUser.objects.filter(user=request.user, blocked_user=user_to_follow).exists():
-                    message = "Vous avez bloqué cet utilisateur. Débloquez-le d'abord."
-
                 if user_to_follow == request.user:
                     message = "Vous ne pouvez pas vous suivre vous-même."
+
+                elif BlockedUser.objects.filter(user=request.user, blocked_user=user_to_follow).exists():
+                    message = "Vous avez bloqué cet utilisateur. Débloquez-le d'abord."
+
+                elif BlockedUser.objects.filter(user=user_to_follow, blocked_user=request.user).exists():
+                    message = "Vous ne pouvez pas suivre cet utilisateur."
+
                 elif UserFollows.objects.filter(user=request.user, followed_user=user_to_follow).exists():
                     message = "Vous suivez déjà cet utilisateur."
+
                 else:
                     UserFollows.objects.create(user=request.user, followed_user=user_to_follow)
                     return redirect('follow_users')
+
             except User.DoesNotExist:
                 message = "Cet utilisateur n'existe pas."
 
     following = UserFollows.objects.filter(user=request.user)
     followers = UserFollows.objects.filter(followed_user=request.user)
 
+    blocked_users = BlockedUser.objects.filter(user=request.user)
+
     context = {
         'form': form,
         'following': following,
         'followers': followers,
+        'blocked_users': blocked_users,
         'message': message
     }
     return render(request, 'reviews/follow_users.html', context)
@@ -225,4 +234,9 @@ def block_user(request, user_id):
         UserFollows.objects.filter(user=request.user, followed_user=user_to_block).delete()
         UserFollows.objects.filter(user=user_to_block, followed_user=request.user).delete()
 
+    return redirect('follow_users')
+
+@login_required
+def unblock_user(request, user_id):
+    BlockedUser.objects.filter(user=request.user, blocked_user_id=user_id).delete()
     return redirect('follow_users')

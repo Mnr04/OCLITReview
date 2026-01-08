@@ -23,7 +23,9 @@ urlpatterns = [
 
     path('follow-users/', views.follow_users, name='follow_users'),
     path('unfollow/<int:user_id>/', views.unfollow_user, name='unfollow_user'),
+
     path('block_user/<int:user_id>/', views.block_user, name='block_user'),
+    path('unblock-user/<int:user_id>/', views.unblock_user, name='unblock_user'),
 
     path('posts/', views.posts, name='posts'),
 ]
