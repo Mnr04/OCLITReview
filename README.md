@@ -14,7 +14,7 @@ This project was developed as part of the OpenClassrooms Python Developer path (
 ## Technologies Used
 * **Language:** Python 3
 * **Framework:** Django
-* **Database:** SQLite 
+* **Database:** SQLite
 * **Frontend:** HTML5, CSS3
 
 ## Installation Guide
@@ -36,7 +36,7 @@ cd oc_litreview
 python -m venv env
 ```
 
-## 4. Activate the virtual environment 
+## 4. Activate the virtual environment
 On windows
 ```bash
 env\Scripts\activate
@@ -63,7 +63,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-You can now access the website in your browser at this adress --> 
+You can now access the website in your browser at this adress -->
 
-
-
+Launch Flake8
+flake8 --format=html --htmldir=flake8_rapport

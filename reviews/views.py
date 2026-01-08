@@ -6,6 +6,7 @@ from .forms import SignupForm, TicketForm, ReviewForm, FollowUserForm
 from itertools import chain
 from django.db.models import CharField, Value
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -17,9 +18,11 @@ def signup(request):
         form = SignupForm()
     return render(request, 'reviews/signup.html', {'form': form})
 
+
 def log_out(request):
     logout(request)
     return redirect('login')
+
 
 @login_required
 def main(request):
@@ -57,6 +60,7 @@ def main(request):
 
     return render(request, 'reviews/main.html', context)
 
+
 @login_required
 def posts(request):
     tickets = Ticket.objects.filter(user=request.user)
@@ -72,6 +76,7 @@ def posts(request):
     )
     return render(request, 'reviews/posts.html', {'posts': posts})
 
+
 @login_required
 def create_ticket(request):
     if request.method == 'POST':
@@ -84,6 +89,7 @@ def create_ticket(request):
     else:
         form = TicketForm()
     return render(request, 'reviews/create_ticket.html', {'form': form})
+
 
 @login_required
 def create_ticket_and_review(request):
@@ -106,6 +112,7 @@ def create_ticket_and_review(request):
     context = {'ticket_form': ticket_form, 'review_form': review_form}
     return render(request, 'reviews/create_ticket_and_review.html', context)
 
+
 @login_required
 def create_review(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -119,7 +126,10 @@ def create_review(request, ticket_id):
             return redirect('main')
     else:
         form = ReviewForm()
-    return render(request, 'reviews/create_review.html', {'form': form, 'ticket': ticket})
+    return render(
+        request, 'reviews/create_review.html', {'form': form, 'ticket': ticket}
+        )
+
 
 @login_required
 def edit_ticket(request, ticket_id):
@@ -136,7 +146,10 @@ def edit_ticket(request, ticket_id):
     else:
         form = TicketForm(instance=ticket)
 
-    return render(request, 'reviews/edit_ticket.html', {'form': form, 'ticket': ticket})
+    return render(
+        request, 'reviews/edit_ticket.html', {'form': form, 'ticket': ticket}
+        )
+
 
 @login_required
 def edit_review(request, review_id):
@@ -159,6 +172,7 @@ def edit_review(request, review_id):
         'ticket': review.ticket
     })
 
+
 @login_required
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -166,12 +180,14 @@ def delete_ticket(request, ticket_id):
         ticket.delete()
     return redirect('posts')
 
+
 @login_required
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     if review.user == request.user:
         review.delete()
     return redirect('posts')
+
 
 @login_required
 def follow_users(request):
@@ -188,17 +204,28 @@ def follow_users(request):
                 if user_to_follow == request.user:
                     message = "Vous ne pouvez pas vous suivre vous-même."
 
-                elif BlockedUser.objects.filter(user=request.user, blocked_user=user_to_follow).exists():
-                    message = "Vous avez bloqué cet utilisateur. Débloquez-le d'abord."
+                elif BlockedUser.objects.filter(
+                    user=request.user, blocked_user=user_to_follow
+                ).exists():
+                    message = (
+                        "Vous avez bloqué cet utilisateur. "
+                        "Débloquez-le d'abord."
+                    )
 
-                elif BlockedUser.objects.filter(user=user_to_follow, blocked_user=request.user).exists():
+                elif BlockedUser.objects.filter(
+                    user=user_to_follow, blocked_user=request.user
+                ).exists():
                     message = "Vous ne pouvez pas suivre cet utilisateur."
 
-                elif UserFollows.objects.filter(user=request.user, followed_user=user_to_follow).exists():
+                elif UserFollows.objects.filter(
+                    user=request.user, followed_user=user_to_follow
+                ).exists():
                     message = "Vous suivez déjà cet utilisateur."
 
                 else:
-                    UserFollows.objects.create(user=request.user, followed_user=user_to_follow)
+                    UserFollows.objects.create(
+                        user=request.user, followed_user=user_to_follow
+                    )
                     return redirect('follow_users')
 
             except User.DoesNotExist:
@@ -218,25 +245,38 @@ def follow_users(request):
     }
     return render(request, 'reviews/follow_users.html', context)
 
+
 @login_required
 def unfollow_user(request, user_id):
     user_to_unfollow = get_object_or_404(User, id=user_id)
-    UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()
+    UserFollows.objects.filter(
+        user=request.user, followed_user=user_to_unfollow
+    ).delete()
     return redirect('follow_users')
+
 
 @login_required
 def block_user(request, user_id):
     user_to_block = get_object_or_404(User, id=user_id)
 
     if user_to_block != request.user:
-        BlockedUser.objects.get_or_create(user=request.user, blocked_user=user_to_block)
+        BlockedUser.objects.get_or_create(
+            user=request.user, blocked_user=user_to_block
+        )
 
-        UserFollows.objects.filter(user=request.user, followed_user=user_to_block).delete()
-        UserFollows.objects.filter(user=user_to_block, followed_user=request.user).delete()
+        UserFollows.objects.filter(
+            user=request.user, followed_user=user_to_block
+        ).delete()
+        UserFollows.objects.filter(
+            user=user_to_block, followed_user=request.user
+        ).delete()
 
     return redirect('follow_users')
 
+
 @login_required
 def unblock_user(request, user_id):
-    BlockedUser.objects.filter(user=request.user, blocked_user_id=user_id).delete()
+    BlockedUser.objects.filter(
+        user=request.user, blocked_user_id=user_id
+    ).delete()
     return redirect('follow_users')

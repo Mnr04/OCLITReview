@@ -2,8 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 class User(AbstractUser):
     pass
+
 
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
@@ -14,6 +16,7 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Review(models.Model):
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
@@ -31,9 +34,14 @@ class Review(models.Model):
     class Meta:
         unique_together = ('ticket', 'user')
 
+
 class UserFollows(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='following')
-    followed_user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='followed_by')
+    user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='following'
+        )
+    followed_user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='followed_by'
+        )
 
     class Meta:
         unique_together = ('user', 'followed_user')
@@ -41,9 +49,14 @@ class UserFollows(models.Model):
     def __str__(self):
         return f"{self.user} suit {self.followed_user}"
 
+
 class BlockedUser(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='user_who_blocks')
-    blocked_user = models.ForeignKey(to=User,on_delete=models.CASCADE,related_name='user_blocked')
+    user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='user_who_blocks'
+        )
+    blocked_user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='user_blocked'
+        )
 
     class Meta:
         unique_together = ('user', 'blocked_user')
