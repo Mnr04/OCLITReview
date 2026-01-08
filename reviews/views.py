@@ -26,6 +26,20 @@ def log_out(request):
 
 @login_required
 def main(request):
+    """
+    Displays the news feed for the logged-in user.
+
+    This view combines tickets and reviews from:
+    - The user.
+    - The users they follow.
+    - Responses to the user's own tickets.
+
+    Posts are sorted by creation date and marked to distinguish
+    between tickets and reviews.
+
+    Returns:
+        HttpResponse: The 'feed.html' page with the list of posts.
+    """
     follows = UserFollows.objects.filter(user=request.user)
     followed_users_ids = []
     for follow in follows:
@@ -63,6 +77,15 @@ def main(request):
 
 @login_required
 def posts(request):
+    """
+    Displays only the posts created by the current user.
+
+    This view retrieves:
+    - Tickets created by the user.
+    - Reviews created by the user.
+
+    The items are combined into a single list and sorted by date.
+    """
     tickets = Ticket.objects.filter(user=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
@@ -93,6 +116,16 @@ def create_ticket(request):
 
 @login_required
 def create_ticket_and_review(request):
+    """
+    Allows the user to create a ticket and a review at the same time.
+
+    This view handles two forms:
+    - TicketForm: For the book/article details.
+    - ReviewForm: For the review content.
+
+    If both forms are valid, the ticket is saved first, and then the review
+    is linked to it.
+    """
     if request.method == 'POST':
         ticket_form = TicketForm(request.POST, request.FILES)
         review_form = ReviewForm(request.POST)
@@ -191,6 +224,15 @@ def delete_review(request, review_id):
 
 @login_required
 def follow_users(request):
+    """
+    Manages the subscription system.
+
+    Allows the user to follow other users based on specific rules:
+    - Users cannot follow themselves.
+    - Users cannot follow someone they have blocked.
+    - Users cannot follow someone who blocked them.
+
+    """
     form = FollowUserForm()
     message = ""
 
