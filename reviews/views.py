@@ -211,8 +211,9 @@ def edit_review(request, review_id):
 @login_required
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    if ticket.user == request.user:
-        ticket.delete()
+    if request == 'POST':
+        if ticket.user == request.user:
+            ticket.delete()
     return redirect('posts')
 
 
