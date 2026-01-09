@@ -27,8 +27,8 @@ Make sure you have Python installed on your computer.
 ### 2. Clone the repository
 Download the code or clone the repository using Git:
 ```bash
-git clone https://github.com/Mnr04/OC_LITReview.git
-cd oc_litreview
+git clone https://github.com/Mnr04/OCLITReview.git
+cd oclitreview
 ```
 
 ## 3.Create a Virtual Environment
