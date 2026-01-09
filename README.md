@@ -77,7 +77,7 @@ DEBUG = True
 python manage.py runserver
 ```
 
-## 9. You can now access the website in your browser at this adress
+## 9. You can now access the website in your browser at this address
 http://127.0.0.1:8000/
 
 ## 10. Generate Flake8 Report (Optional)
