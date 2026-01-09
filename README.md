@@ -22,7 +22,7 @@ This project was developed as part of the OpenClassrooms Python Developer path (
 Follow these steps to run the project locally on your machine.
 
 ### 1. Prerequisite
-Make sure you have **Python** installed on your computer.
+Make sure you have Python installed on your computer.
 
 ### 2. Clone the repository
 Download the code or clone the repository using Git:
@@ -58,12 +58,32 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## 7. Run the server
+## 7. Configuration
+
+This project uses local configuration variables for security purposes (SECRET_KEY).
+Since this file is ignored by Git, you must create it manually for the project to run.
+
+1.  In the `litrevu/` folder (at the same level as `settings.py`), create a file named `local_settings.py`.
+2.  Add the following content:
+
+```python
+# litrevu/local_settings.py
+SECRET_KEY = 'enter-your-random-secret-key-here'
+DEBUG = True
+```
+
+## 8. Run the server
 ```bash
 python manage.py runserver
 ```
 
-You can now access the website in your browser at this adress -->
+## 9. You can now access the website in your browser at this adress
+http://127.0.0.1:8000/
 
-Launch Flake8
+## 10. Generate Flake8 Report (Optional)
+
+To generate the code quality report:
+```bash
 flake8 --format=html --htmldir=flake8_rapport
+```
+

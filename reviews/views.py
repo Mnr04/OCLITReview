@@ -5,6 +5,7 @@ from .models import Ticket, Review, UserFollows, User, BlockedUser
 from .forms import SignupForm, TicketForm, ReviewForm, FollowUserForm
 from itertools import chain
 from django.db.models import CharField, Value
+from django.db import transaction
 
 
 def signup(request):
@@ -130,13 +131,14 @@ def create_ticket_and_review(request):
         ticket_form = TicketForm(request.POST, request.FILES)
         review_form = ReviewForm(request.POST)
         if ticket_form.is_valid() and review_form.is_valid():
-            ticket = ticket_form.save(commit=False)
-            ticket.user = request.user
-            ticket.save()
-            review = review_form.save(commit=False)
-            review.ticket = ticket
-            review.user = request.user
-            review.save()
+            with transaction.atomic():
+                ticket = ticket_form.save(commit=False)
+                ticket.user = request.user
+                ticket.save()
+                review = review_form.save(commit=False)
+                review.ticket = ticket
+                review.user = request.user
+                review.save()
             return redirect('main')
     else:
         ticket_form = TicketForm()
