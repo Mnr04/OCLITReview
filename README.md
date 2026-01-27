@@ -33,7 +33,7 @@ cd oclitreview
 
 ## 3.Create a Virtual Environment
 ```bash
-python -m venv env
+python3 -m venv env
 ```
 
 ## 4. Activate the virtual environment
