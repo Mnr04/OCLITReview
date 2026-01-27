@@ -111,10 +111,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'reviews.User'
@@ -130,3 +126,7 @@ try:
     from .local_settings import * # noqa
 except ImportError:
     pass
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/6.0/howto/static-files/

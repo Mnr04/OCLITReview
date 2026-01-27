@@ -41,23 +41,31 @@ def main(request):
     Returns:
         HttpResponse: The 'feed.html' page with the list of posts.
     """
+
+    # Check the UserFollows table
     follows = UserFollows.objects.filter(user=request.user)
+
+    # create a list with IDs of people I follow
     followed_users_ids = []
     for follow in follows:
         followed_users_ids.append(follow.followed_user.id)
 
+    # get my ticket and people I follow
     tickets_me = Ticket.objects.filter(user=request.user)
     tickets_followed = Ticket.objects.filter(user__in=followed_users_ids)
     tickets = tickets_me | tickets_followed
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
+    # get my review and people I follow
     reviews_me = Review.objects.filter(user=request.user)
     reviews_followed = Review.objects.filter(user__in=followed_users_ids)
+    # Responses to my tickets
     reviews_answers = Review.objects.filter(ticket__in=tickets_me)
     reviews = reviews_me | reviews_followed | reviews_answers
     reviews = reviews.distinct()
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
+    # list the tickets I have already reviewed
     my_reviewed_tickets = []
     for review in reviews_me:
         my_reviewed_tickets.append(review.ticket.id)
@@ -211,9 +219,11 @@ def edit_review(request, review_id):
 @login_required
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    if request.method == 'POST':
-        if ticket.user == request.user:
-            ticket.delete()
+
+    # On vérifie juste que l'utilisateur est bien l'auteur
+    if ticket.user == request.user:
+        ticket.delete()
+
     return redirect('posts')
 
 
